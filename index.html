@@ -67,8 +67,8 @@ input:focus,textarea:focus,select:focus{outline:2px solid #a8c1aa;border-color:v
     <label>興味のあること</label><textarea id="interests">カフェ、食べ歩き、景色のいい場所</textarea>
     <label>行きたい場所</label><textarea id="places" placeholder="例：平和記念公園、厳島神社"></textarea>
     <label>ホテルの希望</label><input id="hotel" value="駅の近く">
-    <div class="actions"><button id="makePrompt">AIへの依頼文を作成</button><button class="secondary" id="copyPrompt">依頼文をコピー</button></div>
-    <p id="promptStatus" class="muted" aria-live="polite">※このアプリ単体にはAI APIは接続されていません。依頼文をChatGPTなどに貼り付けて使えます。</p>
+    <div class="actions"><button id="openChatGPT">✨ ChatGPTで旅行プランを作る</button><button class="secondary" id="makePrompt">依頼文を作成</button><button class="secondary" id="copyPrompt">依頼文をコピー</button></div>
+    <p id="promptStatus" class="muted" aria-live="polite">無料で使える方式だよ。「ChatGPTで旅行プランを作る」を押すと、依頼文をコピーしてChatGPTを開くよ。ChatGPT側で貼り付けて送信してね。</p>
     <textarea id="promptOutput" class="hidden" readonly></textarea>
   </div>
 </section>
@@ -130,6 +130,29 @@ if(item.body){const p=document.createElement("p");p.textContent=item.body;card.a
 const del=document.createElement("button");del.className="secondary";del.textContent="この記録を削除";del.onclick=async()=>{if(confirm("この思い出を削除しますか？")){await dbDelete(item.id);renderRecords()}};card.append(del);host.append(card)}}
 function buildPrompt(){const v=id=>$(id).value;return `TabiMakeで旅行プランを作成してください。\n出発地：${v("origin")}\n目的地：${v("destination")}\n出発日：${v("start")}\n帰宅日：${v("end")}\n予算：${v("budget")}円（1人・往復交通費込み）\n交通手段：${v("transport")}\n優先条件：${v("priority")}\n作成方法：${v("mode")}\n興味：${v("interests")}\n行きたい場所：${v("places")}\nホテル：${v("hotel")}\n実際の交通機関の経路・時刻・料金を確認し、往復移動・乗り換え・現地移動・宿泊・観光を含む時間割と予算を作成してください。未確認の情報は推測で確定扱いにしないでください。`}
 $("makePrompt").onclick=()=>{$("promptOutput").classList.remove("hidden");$("promptOutput").value=buildPrompt();$("promptStatus").textContent="依頼文を作成したよ。コピーしてChatGPTなどに貼り付けてね。"};
+$("openChatGPT").onclick=async()=>{
+  const prompt=buildPrompt();
+  $("promptOutput").classList.remove("hidden");
+  $("promptOutput").value=prompt;
+  // Open synchronously from the click so the browser is less likely to block the new tab.
+  const chatWindow=window.open("https://chatgpt.com/","_blank","noopener");
+  try{
+    await navigator.clipboard.writeText(prompt);
+    $("promptStatus").textContent=chatWindow
+      ? "依頼文をコピーしたよ！開いたChatGPTの入力欄に貼り付けて送信してね。"
+      : "依頼文をコピーしたよ！ポップアップが開かなかった場合は、下のChatGPTリンクを開いて貼り付けてね。";
+  }catch(e){
+    $("promptStatus").textContent="自動コピーできなかったので、下の依頼文を選択してコピーしてね。ChatGPTを開いて貼り付ければOK！";
+  }
+  if(!chatWindow){
+    const link=document.createElement("a");
+    link.href="https://chatgpt.com/";
+    link.target="_blank";
+    link.rel="noopener";
+    link.textContent=" ChatGPTを開く";
+    $("promptStatus").append(link);
+  }
+};
 $("copyPrompt").onclick=async()=>{const text=$("promptOutput").value||buildPrompt();try{await navigator.clipboard.writeText(text);$("promptStatus").textContent="依頼文をコピーしたよ！"}catch(e){$("promptOutput").classList.remove("hidden");$("promptOutput").value=text;$("promptStatus").textContent="下の文章を長押し・選択してコピーしてね。"}};
 if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 (async()=>{try{records=await dbAll()}catch(e){}})();
