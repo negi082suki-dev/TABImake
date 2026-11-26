@@ -1,0 +1,17 @@
+{
+  "name": "TabiMake - 旅の計画と記録",
+  "short_name": "TabiMake",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f7f1",
+  "theme_color": "#e5eee3",
+  "description": "旅の計画から思い出の記録まで。",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

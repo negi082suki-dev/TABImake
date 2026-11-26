@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e7eee3">
+<meta name="description" content="旅の計画から思い出の記録まで。TabiMakeで自分だけの旅行ノートを作ろう。">
+<title>TabiMake</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+:root{--bg:#f5f7f1;--panel:#fff;--sage:#557761;--sage2:#e5eee3;--ink:#294a39;--muted:#657568;--line:#dce5d9;--lav:#ece7f0;--sand:#f0e9de;--shadow:0 8px 24px #294a3910}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+header{background:#e5eee3;padding:18px max(18px,calc((100% - 1000px)/2));position:sticky;top:0;z-index:5;box-shadow:0 2px 12px #294a390b}
+.brand{display:flex;align-items:center;gap:10px}.logo{background:var(--sage);color:white;border-radius:12px;width:42px;height:42px;display:grid;place-items:center;font-size:22px}.brand strong{font-size:23px;letter-spacing:.3px}.tag{font-size:11px;color:var(--muted)}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+button,.btn{border:0;border-radius:12px;padding:10px 15px;background:var(--sage);color:#fff;font-weight:650;cursor:pointer;font-size:14px}
+button.secondary{background:#edf1e9;color:var(--ink)}button.active{background:var(--sage);color:white}button:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1000px;margin:24px auto;padding:0 16px 40px}.hero{background:linear-gradient(125deg,#dfeade,#f1eee2);border-radius:24px;padding:clamp(24px,5vw,48px);min-height:245px;display:flex;flex-direction:column;justify-content:center;margin-bottom:22px}
+.eyebrow{font-size:12px;letter-spacing:2px;color:var(--sage);font-weight:750}.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.2;margin:10px 0;color:var(--ink)}.hero p{color:#52675a;max-width:620px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.tile,.panel,.entry{background:var(--panel);border:1px solid #e8ede5;border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.tile{cursor:pointer;text-align:left;color:var(--ink);min-height:145px}.tile .emoji{font-size:27px}.tile h3{margin:8px 0 3px}.tile p{margin:0;color:var(--muted);font-size:13px}
+h2{font-size:26px;margin:8px 0 4px}h3{margin-top:0}.muted{color:var(--muted);font-size:14px}.section{margin:24px 0}.panel{margin:14px 0}.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+label{display:block;font-size:13px;font-weight:700;color:#52675a;margin:10px 0 5px}input,textarea,select{width:100%;padding:11px 12px;border:1px solid #d5dfd3;border-radius:10px;background:#fff;color:#263d30;font:inherit}textarea{min-height:100px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid #a8c1aa;border-color:var(--sage)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.hidden{display:none!important}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:12px}.photo{position:relative}.photo img{width:100%;aspect-ratio:1.2;object-fit:cover;border-radius:12px;display:block}.photo button{position:absolute;top:6px;right:6px;padding:5px 8px;background:#263d30dd}
+.entry{margin:14px 0}.entry-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.entry small{color:var(--muted)}.entry p{white-space:pre-wrap}.entry-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}.entry-photos img{width:100%;aspect-ratio:1.2;object-fit:cover;border-radius:10px}
+.notice{background:#e8efe5;padding:14px;border-radius:12px;color:#52675a;font-size:13px}.empty{text-align:center;padding:34px 15px;color:var(--muted)}.heart{background:#f6e8e8;color:#a6535b;padding:7px 10px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:30px}
+@media(min-width:700px){header{padding-left:max(24px,calc((100% - 1000px)/2));padding-right:max(24px,calc((100% - 1000px)/2))}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">✈</div><div><strong>TabiMake</strong><div class="tag">Your Journey, Your Story.</div></div></div>
+  <nav>
+    <button class="active" data-page="home">ホーム</button>
+    <button class="secondary" data-page="planner">プラン作成</button>
+    <button class="secondary" data-page="diary">旅の記録</button>
+    <button class="secondary" data-page="album">アルバム</button>
+  </nav>
+</header>
+<main>
+<section id="home" class="page">
+  <div class="hero"><div class="eyebrow">MAKE YOUR OWN JOURNEY</div><h1>次の旅を、<br>もっと自由に。</h1><p>旅の計画から思い出の記録まで。あなただけの旅行ノートを作ろう。</p><div class="actions"><button data-go="planner">旅行プランを作る →</button><button class="secondary" data-go="diary">思い出を記録する</button></div></div>
+  <div class="cards">
+    <button class="tile" data-go="planner"><div class="emoji">✨</div><h3>AI旅行プラン</h3><p>日程や予算から旅の計画を立てよう。</p></button>
+    <button class="tile" data-go="diary"><div class="emoji">📔</div><h3>旅の記録</h3><p>写真や日記で思い出を残そう。</p></button>
+    <button class="tile" data-go="album"><div class="emoji">📷</div><h3>マイアルバム</h3><p>旅の写真やお気に入りを見返そう。</p></button>
+  </div>
+  <div class="section"><h2>旅の思い出を、ひとつずつ。</h2><p class="muted">旅行が終わったあとも、TabiMakeで思い出を大切に。</p></div>
+</section>
+
+<section id="planner" class="page hidden">
+  <div class="eyebrow">TRAVEL PLANNER</div><h2>旅行プランを作成</h2><p class="muted">条件を入力して、旅行プランの依頼文を作ろう。</p>
+  <div class="panel">
+    <h3>📍 旅行先・日程</h3>
+    <div class="grid2"><div><label>出発地</label><input id="origin" value="山形県米沢市"></div><div><label>目的地</label><input id="destination" placeholder="例：広島県広島市"></div>
+    <div><label>出発日</label><input id="start" type="date"></div><div><label>帰宅日</label><input id="end" type="date"></div></div>
+  </div>
+  <div class="panel">
+    <h3>💰 予算・交通手段</h3>
+    <div class="grid2"><div><label>予算（1人・往復交通費込み／円）</label><input id="budget" type="number" value="100000"></div>
+    <div><label>交通手段</label><select id="transport"><option>飛行機</option><option>新幹線・電車</option><option>車</option><option>バス</option><option>AIにおまかせ</option></select></div>
+    <div><label>優先条件</label><select id="priority"><option>バランス重視</option><option>費用を抑える</option><option>観光をたくさん楽しむ</option><option>ゆったり過ごす</option></select></div>
+    <div><label>作成方法</label><select id="mode"><option>AIに全部おまかせ</option><option>行きたい場所を指定してAIに順番を決めてもらう</option></select></div></div>
+    <label>興味のあること</label><textarea id="interests">カフェ、食べ歩き、景色のいい場所</textarea>
+    <label>行きたい場所</label><textarea id="places" placeholder="例：平和記念公園、厳島神社"></textarea>
+    <label>ホテルの希望</label><input id="hotel" value="駅の近く">
+    <div class="actions"><button id="makePrompt">AIへの依頼文を作成</button><button class="secondary" id="copyPrompt">依頼文をコピー</button></div>
+    <p id="promptStatus" class="muted" aria-live="polite">※このアプリ単体にはAI APIは接続されていません。依頼文をChatGPTなどに貼り付けて使えます。</p>
+    <textarea id="promptOutput" class="hidden" readonly></textarea>
+  </div>
+</section>
+
+<section id="diary" class="page hidden">
+  <div class="eyebrow">YOUR TRAVEL MEMORIES</div><h2>旅の記録</h2><p class="muted">その日の景色や気持ちを、自分だけのノートに残そう。</p>
+  <div class="panel">
+    <h3>📖 新しい思い出を作る</h3>
+    <label>旅行のタイトル</label><input id="diaryTitle" placeholder="例：広島旅行">
+    <div class="grid2"><div><label>日付</label><input id="diaryDate" type="date"></div><div><label>訪れた場所</label><input id="diaryPlace" placeholder="例：厳島神社"></div></div>
+    <label>📷 写真を追加（複数選択OK）</label><input id="photos" type="file" accept="image/*" multiple>
+    <div id="photoPreview" class="photo-grid"></div>
+    <div class="tabs"><button id="freeTab" class="active">自由に書く</button><button id="questionTab" class="secondary">質問に答える</button></div>
+    <div id="freeForm"><label>今日の出来事・感想</label><textarea id="freeMemo" placeholder="今日はどんな一日だった？楽しかったことや感じたことを自由に書いてみよう！"></textarea></div>
+    <div id="questionForm" class="hidden">
+      <label>① 今日一番楽しかったことは？</label><textarea id="qFun" placeholder="例：景色がとてもきれいだった！"></textarea>
+      <label>② 驚いたこと・初めて知ったことは？</label><textarea id="qSurprise"></textarea>
+      <label>③ 今日の感想・また行きたい？</label><textarea id="qFeeling"></textarea>
+    </div>
+    <label><input id="isFavorite" type="checkbox" style="width:auto;margin-right:8px">❤️ お気に入りに登録する</label>
+    <div class="actions"><button id="saveDiary">記録を保存する</button><button class="secondary" id="clearDiary">入力をクリア</button></div>
+    <p id="saveStatus" class="muted" aria-live="polite">記録はこのブラウザ内に保存されます。</p>
+  </div>
+</section>
+
+<section id="album" class="page hidden">
+  <div class="eyebrow">MY ALBUM</div><h2>旅のアルバム</h2><p class="muted">これまでに残した思い出を見返そう。</p>
+  <div class="tabs"><button id="allTab" class="active">すべて</button><button id="favTab" class="secondary">❤️ お気に入り</button></div>
+  <div id="entries"></div>
+</section>
+<div class="footer">TabiMake · Find your own way. Enjoy your journey.</div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let selectedPhotos=[], currentMode="free", showFavorites=false, records=[];
+const DB_NAME="tabimake-db", STORE="records";
+function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>req.result.createObjectStore(STORE,{keyPath:"id",autoIncrement:true});req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+async function dbAll(){const db=await openDB();return new Promise((res,rej)=>{const r=db.transaction(STORE).objectStore(STORE).getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function dbAdd(item){const db=await openDB();return new Promise((res,rej)=>{const r=db.transaction(STORE,"readwrite").objectStore(STORE).add(item);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function dbUpdate(item){const db=await openDB();return new Promise((res,rej)=>{const r=db.transaction(STORE,"readwrite").objectStore(STORE).put(item);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+async function dbDelete(id){const db=await openDB();return new Promise((res,rej)=>{const r=db.transaction(STORE,"readwrite").objectStore(STORE).delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}
+function go(page){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("hidden",p.id!==page));document.querySelectorAll("nav button").forEach(b=>{b.classList.toggle("active",b.dataset.page===page);b.classList.toggle("secondary",b.dataset.page!==page)});if(page==="album")renderRecords();window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.page)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+$("freeTab").onclick=()=>setMode("free");$("questionTab").onclick=()=>setMode("question");
+function setMode(m){currentMode=m;$("freeForm").classList.toggle("hidden",m!=="free");$("questionForm").classList.toggle("hidden",m!=="question");$("freeTab").className=m==="free"?"active":"secondary";$("questionTab").className=m==="question"?"active":"secondary"}
+$("photos").addEventListener("change",async e=>{const files=[...e.target.files];for(const file of files){if(!file.type.startsWith("image/"))continue;selectedPhotos.push({name:file.name,blob:file});}renderPreview()});
+function renderPreview(){$("photoPreview").innerHTML="";selectedPhotos.forEach((p,i)=>{const d=document.createElement("div");d.className="photo";const img=document.createElement("img");img.src=URL.createObjectURL(p.blob);const b=document.createElement("button");b.textContent="×";b.type="button";b.onclick=()=>{selectedPhotos.splice(i,1);renderPreview()};d.append(img,b);$("photoPreview").append(d)})}
+function diaryBody(){return currentMode==="free"?$("freeMemo").value.trim():[["楽しかったこと",$("qFun").value],["驚いたこと・初めて知ったこと",$("qSurprise").value],["今日の感想",$("qFeeling").value]].filter(x=>x[1].trim()).map(x=>x[0]+"："+x[1].trim()).join("\n")}
+$("saveDiary").onclick=async()=>{const title=$("diaryTitle").value.trim(),body=diaryBody();if(!title){$("saveStatus").textContent="旅行のタイトルを入力してね。";return}if(!body&&!selectedPhotos.length){$("saveStatus").textContent="文章か写真を追加してね。";return}
+try{await dbAdd({title,date:$("diaryDate").value,place:$("diaryPlace").value.trim(),body,favorite:$("isFavorite").checked,photos:selectedPhotos.map(p=>({name:p.name,blob:p.blob})),createdAt:Date.now()});$("saveStatus").textContent="思い出を保存したよ！アルバムで確認できるよ。";clearForm();}catch(e){$("saveStatus").textContent="保存できませんでした。端末の空き容量などを確認してね。"}};
+function clearForm(){["diaryTitle","diaryDate","diaryPlace","freeMemo","qFun","qSurprise","qFeeling"].forEach(id=>$(id).value="");$("isFavorite").checked=false;$("photos").value="";selectedPhotos=[];renderPreview()}
+$("clearDiary").onclick=clearForm;
+$("allTab").onclick=()=>{showFavorites=false;renderRecords()};$("favTab").onclick=()=>{showFavorites=true;renderRecords()};
+async function renderRecords(){const host=$("entries");host.innerHTML="";let list=await dbAll();list.sort((a,b)=>(b.date||"").localeCompare(a.date||"")||b.createdAt-a.createdAt);if(showFavorites)list=list.filter(x=>x.favorite);$("allTab").className=showFavorites?"secondary":"active";$("favTab").className=showFavorites?"active":"secondary";if(!list.length){host.innerHTML='<div class="panel empty">📷<br><strong>まだ思い出がありません</strong><br>旅の記録を追加すると、ここにアルバムができるよ。</div>';return}
+for(const item of list){const card=document.createElement("article");card.className="entry";const head=document.createElement("div");head.className="entry-head";const info=document.createElement("div");const h=document.createElement("h3");h.textContent=item.title;const small=document.createElement("small");small.textContent=[item.date,item.place].filter(Boolean).join(" · ");info.append(h,small);const fav=document.createElement("button");fav.className="heart";fav.textContent=item.favorite?"♥":"♡";fav.title="お気に入り切り替え";fav.onclick=async()=>{item.favorite=!item.favorite;await dbUpdate(item);renderRecords()};head.append(info,fav);card.append(head);
+if(item.photos?.length){const pg=document.createElement("div");pg.className="entry-photos";for(const p of item.photos){const im=document.createElement("img");im.src=URL.createObjectURL(p.blob);im.alt=p.name||"旅行の写真";pg.append(im)}card.append(pg)}
+if(item.body){const p=document.createElement("p");p.textContent=item.body;card.append(p)}
+const del=document.createElement("button");del.className="secondary";del.textContent="この記録を削除";del.onclick=async()=>{if(confirm("この思い出を削除しますか？")){await dbDelete(item.id);renderRecords()}};card.append(del);host.append(card)}}
+function buildPrompt(){const v=id=>$(id).value;return `TabiMakeで旅行プランを作成してください。\n出発地：${v("origin")}\n目的地：${v("destination")}\n出発日：${v("start")}\n帰宅日：${v("end")}\n予算：${v("budget")}円（1人・往復交通費込み）\n交通手段：${v("transport")}\n優先条件：${v("priority")}\n作成方法：${v("mode")}\n興味：${v("interests")}\n行きたい場所：${v("places")}\nホテル：${v("hotel")}\n実際の交通機関の経路・時刻・料金を確認し、往復移動・乗り換え・現地移動・宿泊・観光を含む時間割と予算を作成してください。未確認の情報は推測で確定扱いにしないでください。`}
+$("makePrompt").onclick=()=>{$("promptOutput").classList.remove("hidden");$("promptOutput").value=buildPrompt();$("promptStatus").textContent="依頼文を作成したよ。コピーしてChatGPTなどに貼り付けてね。"};
+$("copyPrompt").onclick=async()=>{const text=$("promptOutput").value||buildPrompt();try{await navigator.clipboard.writeText(text);$("promptStatus").textContent="依頼文をコピーしたよ！"}catch(e){$("promptOutput").classList.remove("hidden");$("promptOutput").value=text;$("promptStatus").textContent="下の文章を長押し・選択してコピーしてね。"}};
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+(async()=>{try{records=await dbAll()}catch(e){}})();
+</script>
+</body>
+</html>
